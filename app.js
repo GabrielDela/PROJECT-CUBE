@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const UserRoutes = require('./routes/users')
-const ResourceRoutes = require('./routes/resources')
-const CommentRoutes = require('./routes/comments')
+const UserRoutes = require('./routes/users');
+const ResourceRoutes = require('./routes/resources');
+const CommentRoutes = require('./routes/comments');
 
 // export one function that gets called once as the server is being initialized
 module.exports = function (app, server) {

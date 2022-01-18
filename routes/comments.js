@@ -17,8 +17,12 @@ router.get('/:id', function (req, res) {
                 User.findOne({ _id: comment.id_user })
                     .then(user => {
                         Resource.findOne({ _id: comment.id_relationship })
-                            .then(resource => {
-                                res.status(200).json({comment: comment, user: user, relation: resource });
+                            .then(resource_R => {
+                                Comment.findOne({ _id: comment.id_relationship })
+                                    .then(comment_R => {
+                                        res.status(200).json({ comment: comment, user: user, relation: (resource_R == null ? comment_R : resource_R) });
+                                    })
+                                    .catch(error => res.status(404).json({ error }));
                             })
                             .catch(error => res.status(404).json({ error }));
                     })
