@@ -10,6 +10,30 @@ router.get('/', function (req, res) {
     });
 });
 
+router.post('/', function (req, res) {
+    var data = req.query;
+    if (data.id_relationship != null && data.id_user != null && data.comment != null) {
+        const comment = new Comment({ id_relationship: data.id_relationship, id_user: data.id_user, comment: data.comment, create_date: Date.now() });
+        comment.save().then(() => {
+            res.status(201).json({ message: 'Comment registered' });
+        }).catch((error) => {
+            res.status(400).json({ error });
+        });
+    }
+    else {
+        res.status(404).json('Invalid comment model');
+    }
+});
+
+router.get('/lastest', function (req, res) {
+    var data = req.query;
+    if(data.scroll != null){
+        Comment.find({ deleted: false, }).skip(data.scroll * 10).limit(10).sort({ create_date: "ASC" })
+        .then(data => res.status(200).json(data))
+        .catch(error => res.status(400).json({ error }));
+    }
+});
+
 router.get('/:id', function (req, res) {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         Comment.findOne({ _id: req.params.id })
@@ -37,20 +61,6 @@ router.get('/:id', function (req, res) {
     }
 });
 
-router.post('/', function (req, res) {
-    var data = req.query;
-    if (data.id_relationship != null && data.id_user != null && data.comment != null) {
-        const comment = new Comment({ id_relationship: data.id_relationship, id_user: data.id_user, comment: data.comment });
-        comment.save().then(() => {
-            res.status(201).json({ message: 'Comment registered' });
-        }).catch((error) => {
-            res.status(400).json({ error });
-        });
-    }
-    else {
-        res.status(404).json('Invalid comment model');
-    }
-});
 
 router.delete('/:id', function (req, res) {
     // Ici, on ne supprime pas réelement le message, on le cache car sinon, les commentaires ayant des relations 
@@ -64,6 +74,5 @@ router.delete('/:id', function (req, res) {
         res.status(404).json('Invalid comment ID');
     }
 });
-
 
 module.exports = router;
