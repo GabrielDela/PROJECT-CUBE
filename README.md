@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Accès aux ressources :
 [] Lister les ressources (NO ACCOUNT)
 [] Lister les ressources restreintes (NO ACCOUNT)
@@ -173,3 +174,6 @@ Documents de rendu :
 [] Diagramme UML (cas d'utilisation, etc...)
 [] Diagramme d'analyse de la valeur (Bête à corne, etc...)
 [] BDD schématisée en UML, et Merise
+=======
+# PROJECT-CUBE
+>>>>>>> 9b88fd04862264e4ee308bd99f925b882773621b
