@@ -70,7 +70,7 @@ router.delete('/:id', function (req, res) {
             .then(() => res.status(200).json({ message: 'Comment updated.' }))
             .catch(error => res.status(400).json({ error }));
     }
-    else {commentaires
+    else {
         res.status(404).json('Invalid comment ID');
     }
 });
