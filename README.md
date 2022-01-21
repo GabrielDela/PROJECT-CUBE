@@ -157,11 +157,7 @@ Contenu :
 ----------
 
 LIVRABLES
-    Mission 1 : rédaction d’un cahier des charges du projet (RE)Sources Relationnelles incluant la 
-    reformulation  du  besoin  énoncé,  de  son  contexte,  des  contraintes  et  tout  autre  élément 
-    susceptibles d’impacter le besoin ou la réponse proposée. L’objectif de ce document est de 
-    constater l’appropriation du sujet par le prestataire et sa capacité à comprendre, analyser et 
-    reformuler le besoin. 
+    Mission 1 : rédaction d’un cahier des charges du projet (RE)Sources Relationnelles incluant la reformulation  du  besoin  énoncé,  de  son  contexte,  des  contraintes  et tout  autre  élément susceptibles d’impacter le besoin ou la réponse proposée. L’objectif de ce document est de constater l’appropriation du sujet par le prestataire et sa capacité à comprendre, analyser et reformuler le besoin. 
 
     Mission 2 : modélisation de l’architecture logicielle et de la structure de la base de données 
 
