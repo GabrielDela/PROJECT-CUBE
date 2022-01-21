@@ -25,14 +25,14 @@ router.post('/', function (req, res) {
     }
 });
 
-router.get('/lastest', function (req, res) {
-    var data = req.query;
-    if(data.scroll != null){
-        Comment.find({ deleted: false, }).skip(data.scroll * 10).limit(10).sort({ create_date: "ASC" })
-        .then(data => res.status(200).json(data))
-        .catch(error => res.status(400).json({ error }));
-    }
-});
+// router.get('/lastest', function (req, res) {
+//     var data = req.query;
+//     if(data.scroll != null){
+//         Comment.find({ deleted: false, }).skip(data.scroll * 10).limit(10).sort({ create_date: "ASC" })
+//         .then(data => res.status(200).json(data))
+//         .catch(error => res.status(400).json({ error }));
+//     }
+// });
 
 router.get('/:id', function (req, res) {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -63,14 +63,14 @@ router.get('/:id', function (req, res) {
 
 
 router.delete('/:id', function (req, res) {
-    // Ici, on ne supprime pas réelement le message, on le cache car sinon, les commentaires ayant des relations 
+    // Ici, on ne supprime pas réelement le message, on le cache car sinon, les  ayant des relations 
     // avec celui-ci pourrais avoir une erreur lors du chargement de la vue du commentaire.
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         Comment.updateOne({ _id: req.params.id }, { deleted: true })
             .then(() => res.status(200).json({ message: 'Comment updated.' }))
             .catch(error => res.status(400).json({ error }));
     }
-    else {
+    else {commentaires
         res.status(404).json('Invalid comment ID');
     }
 });
