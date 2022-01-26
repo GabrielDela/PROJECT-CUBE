@@ -36,15 +36,20 @@ router.post('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        console.log("1");
         Comment.findOne({ _id: req.params.id })
             .then(comment => {
+                console.log(comment);
                 User.findOne({ _id: comment.id_user })
                     .then(user => {
+                        console.log("1");
                         Resource.findOne({ _id: comment.id_relationship })
                             .then(resource_R => {
+                                console.log("1");
                                 resource_R != null ? resource_R.model = "resource" : null;
                                 Comment.findOne({ _id: comment.id_relationship })
                                     .then(comment_R => {
+                                        console.log("1");
                                         comment_R != null ? comment_R.model = "comment" : null;
                                         res.status(200).json({ comment: comment, user: user, relation: (resource_R == null ? comment_R : resource_R) });
                                     })

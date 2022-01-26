@@ -1,0 +1,16 @@
+### Installer REST Client et créez des requêtes HTTP en mettant le type (GET POST PUT PATCH DELETE) avec l'URL de l'api / routes
+
+# GET http://localhost:3000/users
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "firstname": "DELAHAYE",
+    "lastname": "Gabriel",
+    "email": "gabrieldelahaye76680@gmail.com",
+    "google_id": "123456789"
+}
+
