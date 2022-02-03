@@ -1,0 +1,3 @@
+back-end/.gitignore
+back-end/package-lock.json
+back-end/node_modules
