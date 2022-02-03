@@ -64,7 +64,34 @@ router.post('/login', function (req, res) {
     });
 });
 
+router.post('/logout', function (req, res) {
+    if(req.body.email == null || req.body.password == null){
+        res.status(401).json("Invalid credentials");
+    }
+    const password = sha256(req.body.password);
+
+    console.log(req.body)
+
+    User.findOne({ email: req.body.email }).then(user => {
+        if(user.password == password){
+            var accessToken = generateAccessToken(user.toJSON());
+            var refreshToken = generateRefreshToken(user.toJSON());
+            res.status(200).json({
+                accessToken: accessToken,
+                refreshToken: refreshToken
+            });
+        }
+        else{
+            res.status(401).json("Invalid credentials");
+        }
+    }).catch((error) => {
+        console.log(error);
+        res.status(400).json({ error });
+    });
+});
+
 router.get('/me', authenticateToken, function (req, res) {
+    console.log(req.user);
     res.status(200).json(req.user);
 });
 
