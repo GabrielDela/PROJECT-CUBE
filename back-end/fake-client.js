@@ -10,7 +10,7 @@ instance.post('/auth/login', {
   email: 'gabrieldelahaye76680@gmail.com',
   password: '1234'
 }).then((response) => {
-  instance.defaults.headers.common['authorization'] = `Bearer f${response.data.accessToken}`;
+  instance.defaults.headers.common['authorization'] = `Bearer ${response.data.accessToken}`;
   refreshToken = response.data.refreshToken;
   loadUserInfos();
 }).catch((err) => {
