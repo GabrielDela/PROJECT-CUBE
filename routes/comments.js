@@ -36,7 +36,6 @@ router.post('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-        console.log("1");
         Comment.findOne({ _id: req.params.id })
             .then(comment => {
                 console.log(comment);

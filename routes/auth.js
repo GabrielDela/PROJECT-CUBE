@@ -104,6 +104,39 @@ function authenticateToken(req, res, next) {
     });
 }
 
+router.post('/register', function (req, res) {
+    console.log(req.body);
+    if (req.body.firstname != null && req.body.lastname != null && req.body.email == null && (req.body.password == null && req.body.google_id != null)) {
+        res.status(401).json("Invalid informations");
+    }
+    else{
+        var user;
+        
+        if(req.body.google_id != null){
+            user = new User({
+                email: req.body.email,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                google_id: req.body.google_id,
+            });
+        }
+        else{
+            const password = sha256(req.body.password);
+            user = new User({
+                email: req.body.email,
+                password: password,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+            });
+        }
+        
+        user.save().then((user) => {
+            res.status(200).json(user);
+        }).catch((error) => {
+            res.status(400).json(error);
+        });
+    }
+});
 
 
 module.exports = router;

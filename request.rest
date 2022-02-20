@@ -4,13 +4,13 @@
 
 ###
 
-POST http://localhost:3000/users
+POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
     "firstname": "DELAHAYE",
     "lastname": "Gabriel",
-    "email": "gabrieldelahaye76680@gmail.com",
-    "google_id": "123456789"
+    "email": "gabriel",
+    "google_id": "1234"
 }
 
