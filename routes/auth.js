@@ -20,12 +20,12 @@ router.post('/refresh-token', authenticateToken, function (req, res) {
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.sendStatus(401);
+        return res.sendStatus(400);
     }
 
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.sendStatus(401);
+            return res.sendStatus(400);
         }
 
         User.findOne({ email: user.email }).then(result => {
@@ -38,7 +38,7 @@ router.post('/refresh-token', authenticateToken, function (req, res) {
                 });
             }
             else {
-                res.status(401).json("Invalid credentials");
+                res.status(400).json("Invalid credentials");
             }
         }).catch((error) => {
             console.log(error);
@@ -49,7 +49,7 @@ router.post('/refresh-token', authenticateToken, function (req, res) {
 
 router.post('/login', function (req, res) {
     if (req.body.email == null || req.body.password == null) {
-        res.status(401).json("Invalid credentials");
+        res.status(400).json("Invalid credentials");
     }
     const password = sha256(req.body.password);
 
@@ -65,7 +65,7 @@ router.post('/login', function (req, res) {
             });
         }
         else {
-            res.status(401).json("Invalid credentials");
+            res.status(400).json("Invalid credentials");
         }
     }).catch((error) => {
         console.log(error);
@@ -79,7 +79,7 @@ router.get('/me', authenticateToken, function (req, res) {
             res.status(200).json(req.user);
         }
         else {
-            res.status(401).json("Invalid credentials");
+            res.status(400).json("Invalid credentials");
         }
     }).catch((error) => {
         console.log(error);
@@ -92,12 +92,12 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.sendStatus(401);
+        return res.sendStatus(400);
     }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.sendStatus(401);
+            return res.sendStatus(400);
         }
         req.user = user;
         next();
@@ -107,7 +107,7 @@ function authenticateToken(req, res, next) {
 router.post('/register', function (req, res) {
     console.log(req.body);
     if (req.body.firstname != null && req.body.lastname != null && req.body.email == null && (req.body.password == null && req.body.google_id != null)) {
-        res.status(401).json("Invalid informations");
+        res.status(400).json("Invalid informations");
     }
     else{
         var user;
