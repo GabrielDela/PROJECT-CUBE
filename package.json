@@ -17,6 +17,7 @@
     "js-sha256": "^0.9.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.11",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "swagger-ui-express": "^4.3.0"
   }
 }
