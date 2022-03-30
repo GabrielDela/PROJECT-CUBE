@@ -86,17 +86,17 @@ router.delete('/:id', function (req, res) {
 });
 
 // add a favorite in favorites array
-router.put('/:id/favorites', function (req, res) {
+router.post('/:id/favorites/:resourceId', function (req, res) {
+    console.log(req.params)
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         User.findOne({ _id: req.params.id })
             .then(data => {
-                if (data.favorites.indexOf(req.body.id) == -1) {
-                    data.favorites.push(req.body.id);
-                    data.save().then(() => res.status(200).json({ message: 'Favorite added.' }))
-                        .catch(error => res.status(400).json({ error }));
-                }
-                else {
-                    res.status(400).json({ message: 'Favorite already exists.' });
+                if (data.favorites.indexOf(req.params.resourceId) == -1) {
+                    data.favorites.push(req.params.resourceId);
+                    data.save().then(() => res.status(200).json({ 
+                        message: 'Favorite added.',
+                        success: true
+                    })).catch(error => res.status(400).json({ error }));
                 }
             })
             .catch(error => res.status(400).json({ error }));
@@ -107,13 +107,13 @@ router.put('/:id/favorites', function (req, res) {
 });
 
 // remove a favorite from favorites array
-router.delete('/:id/favorites', function (req, res) {
+router.delete('/:id/favorites/:resourceId', function (req, res) {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         User.findOne({ _id: req.params.id })
             .then(data => {
-                if (data.favorites.indexOf(req.body.id) != -1) {
-                    data.favorites.splice(data.favorites.indexOf(req.body.id), 1);
-                    data.save().then(() => res.status(200).json({ message: 'Favorite removed.' }))
+                if (data.favorites.indexOf(req.params.resourceId) != -1) {
+                    data.favorites.splice(data.favorites.indexOf(req.params.resourceId), 1);
+                    data.save().then(() => res.status(200).json({ message: 'Favorite removed.', success: true }))
                         .catch(error => res.status(400).json({ error }));
                 }
                 else {

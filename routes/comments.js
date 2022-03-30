@@ -11,9 +11,9 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    var data = req.query;
-    if (data.id_relationship != null && data.id_user != null && data.comment != null) {
-        const comment = new Comment({ id_relationship: data.id_relationship, id_user: data.id_user, comment: data.comment, create_date: Date.now() });
+    var data = req.body;
+    if (data.id_resource != null && data.id_user != null && data.comment != null) {
+        const comment = new Comment({ id_resource: data.id_resource, id_user: data.id_user, comment: data.comment, create_date: Date.now() });
         comment.save().then(() => {
             res.status(201).json({ message: 'Comment registered' });
         }).catch((error) => {
@@ -34,37 +34,37 @@ router.post('/', function (req, res) {
 //     }
 // });
 
-router.get('/:id', function (req, res) {
-    if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-        console.log("1");
-        Comment.findOne({ _id: req.params.id })
-            .then(comment => {
-                console.log(comment);
-                User.findOne({ _id: comment.id_user })
-                    .then(user => {
-                        console.log("1");
-                        Resource.findOne({ _id: comment.id_relationship })
-                            .then(resource_R => {
-                                console.log("1");
-                                resource_R != null ? resource_R.model = "resource" : null;
-                                Comment.findOne({ _id: comment.id_relationship })
-                                    .then(comment_R => {
-                                        console.log("1");
-                                        comment_R != null ? comment_R.model = "comment" : null;
-                                        res.status(200).json({ comment: comment, user: user, relation: (resource_R == null ? comment_R : resource_R) });
-                                    })
-                                    .catch(error => res.status(404).json({ error }));
-                            })
-                            .catch(error => res.status(404).json({ error }));
-                    })
-                    .catch(error => res.status(404).json({ error }));
-            })
-            .catch(error => res.status(404).json({ error }));
-    }
-    else {
-        res.status(404).json('Invalid comment ID');
-    }
-});
+// router.get('/:id', function (req, res) {
+//     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+//         console.log("1");
+//         Comment.findOne({ _id: req.params.id })
+//             .then(comment => {
+//                 console.log(comment);
+//                 User.findOne({ _id: comment.id_user })
+//                     .then(user => {
+//                         console.log("1");
+//                         Resource.findOne({ _id: comment.id_relationship })
+//                             .then(resource_R => {
+//                                 console.log("1");
+//                                 resource_R != null ? resource_R.model = "resource" : null;
+//                                 Comment.findOne({ _id: comment.id_relationship })
+//                                     .then(comment_R => {
+//                                         console.log("1");
+//                                         comment_R != null ? comment_R.model = "comment" : null;
+//                                         res.status(200).json({ comment: comment, user: user, relation: (resource_R == null ? comment_R : resource_R) });
+//                                     })
+//                                     .catch(error => res.status(404).json({ error }));
+//                             })
+//                             .catch(error => res.status(404).json({ error }));
+//                     })
+//                     .catch(error => res.status(404).json({ error }));
+//             })
+//             .catch(error => res.status(404).json({ error }));
+//     }
+//     else {
+//         res.status(404).json('Invalid comment ID');
+//     }
+// });
 
 
 router.delete('/:id', function (req, res) {

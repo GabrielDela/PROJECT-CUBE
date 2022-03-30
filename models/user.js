@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
+    activated: { type: Boolean, default: true },
     firstname: { type: String, required: true },
     lastname: { type: String, require: true },
     tag : { type: String, require: true },
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
     avatar: { type: String, require: false },
     age : { type: Number, require: true },
     role : { type: String, require: true, default: 'user' },
-    favorites: [{ type: String, require: false, default: {} }],
+    favorites: [{ type: String, require: false }],
 });
 
 module.exports = mongoose.model('User', userSchema);
