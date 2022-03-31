@@ -12,6 +12,7 @@ const CommentRoutes = require('./routes/comments');
 const CategoryRoutes = require('./routes/categories');
 const TypeRoutes = require('./routes/types');
 const { urlencoded } = require('body-parser');
+const RelationsRoutes = require('./routes/relations');
 
 
 
@@ -50,4 +51,5 @@ module.exports = function (app, server) {
     app.use('/api/resources', ResourceRoutes);
     app.use('/api/categories', CategoryRoutes);
     app.use('/api/types', TypeRoutes);
+    app.use('/api/relations', RelationsRoutes);
 }

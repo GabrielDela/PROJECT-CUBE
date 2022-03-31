@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/User');
+const User = require('../models/user');
 const Relation = require('../models/relation');
 const sha256 = require('js-sha256');
 
 //OK
 router.get('/', function (req, res) {
     Relation.find()
-    .then(data => { res.status(200).json(data)})
-    .catch(error => res.status(400).json({ error }));;
+        .then(data => { res.status(200).json(data) })
+        .catch(error => res.status(400).json({ error }));;
 });
 
 //OK
@@ -29,8 +29,8 @@ router.post('/', function (req, res) {
 
     if (data.id_from != null && data.id_to != null) {
         var model = {
-            id_from: data.id_from, 
-            id_to: data.id_to, 
+            id_from: data.id_from,
+            id_to: data.id_to,
         };
         data.relation == null ? null : model.relation = data.relation;
 
@@ -59,7 +59,7 @@ router.get('/friends/:id', function (req, res) {
                     ids.push(data.id_to);
                 });
 
-                Relation.find({ _id: { "$in": ids } })
+                User.find({ _id: { "$in": ids } })
                     .then(data => {
                         res.status(200).json(data);
                     })
@@ -71,8 +71,8 @@ router.get('/friends/:id', function (req, res) {
                 res.status(400).json(e);
             });
     }
-    else{
-        res.status(400).json("Invalid Relation id");
+    else {
+        res.status(400).json("Invalid user id");
     }
 });
 
